@@ -51,6 +51,6 @@ class HomeController extends Controller
             ['label' => 'PHT', 'value' => $perhotelan, 'sub_value' => $perhotelandu],
         ];
         //dd($data);
-        return view('home', compact('data'));
+        return view('home', compact(['siswa','data']));
     }
 }

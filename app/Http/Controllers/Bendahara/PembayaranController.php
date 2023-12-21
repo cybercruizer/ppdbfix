@@ -15,6 +15,7 @@ class PembayaranController extends Controller
     {
         $this->middleware('bendahara.access');
     }
+
     public function index()
     {
         // Ambil data pembayaran dari database dan tampilkan pada halaman view
@@ -28,33 +29,38 @@ class PembayaranController extends Controller
         $searchQuery = $request->query('search');
 
         // Get all students with pagination (20 data per page) and apply search if provided
-        $siswaList = Siswa::where(function ($query) use ($searchQuery) {
+        $siswaList = Siswa::with('tagihan','payments')->where(function ($query) use ($searchQuery) {
             if ($searchQuery) {
                 $query->where('nama', 'like', '%' . $searchQuery . '%');
             }
-        })->paginate(3);
+        })->paginate(20);
 
         // Get all tagihans for the dropdown
-        $tagihanList = Tagihan::all();
+        //$tagihanList = Tagihan::all();
 
         // Get all tahuns for the dropdown
-        $tahunList = Tahun::all();
+        //$tahunList = Tahun::all();
 
-        return view('pembayaran.create', compact('siswaList', 'tagihanList', 'tahunList', 'searchQuery'));
+        return view('pembayaran.create', compact('siswaList', 'searchQuery'));
     }
 
     public function store(Request $request)
     {
         // Validasi input data pembayaran (optional)
+
+        $bayar = str_replace('.', '', $request->nominal);
         $validatedData = $request->validate([
             'siswa_id' => 'required',
             'tagihan_id' => 'required',
-            'tahun_id' => 'required',
-            'nominal' => 'required|numeric',
+            //'tahun_id' => 'required',
+            //'nominal' => 'required|numeric',
         ]);
-
+        $payment = new Payment;
+        $payment->siswa_id = $request->siswa_id;
+        $payment->tagihan_id = $request->tagihan_id;
+        $payment->nominal = $bayar;
         // Simpan data pembayaran ke database
-        Payment::create($validatedData);
+        $payment->save();
 
         // Redirect atau berikan respons sesuai kebutuhan
         return redirect()->route('pembayaran.history')->with('success', 'Data pembayaran berhasil disimpan.');

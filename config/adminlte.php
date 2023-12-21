@@ -313,19 +313,30 @@ return [
         ],
 
         //Khusus Bendahara
+
         [
             'header'=> 'Pembayaran',
             'icon'  => 'far fa-fw fa-dollar-sign',
             'classes'  => 'text-yellow text-bold',
         ],
             [
-                'text'=>'Input Pembayaran',
+                'text'=>'Bend Input Pembayaran',
                 'url' =>'/pembayaran/create',
                 'icon' => 'fas fa-fw fa-hand-holding-usd',
             ],
             [
-                'text'=>'History Pembayaran',
+                'text'=>'Bend Histori Pembayaran',
                 'url' =>'/pembayaran/history',
+                'icon' => 'fas fa-fw fa-list',
+            ],
+            [
+                'text'=>'Adm Input Pembayaran',
+                'url' =>'/admin/pembayaran',
+                'icon' => 'fas fa-fw fa-hand-holding-usd',
+            ],
+            [
+                'text'=>'Adm Histori Pembayaran',
+                'url' =>'/admin/history',
                 'icon' => 'fas fa-fw fa-list',
             ],
             [
@@ -340,55 +351,61 @@ return [
                 ],
                 [
                     'text'=>'Aksi Peduli',
-                    'url' =>'admin/pendaftar/ap',
+                    'url' =>'admin/ap',
                     'icon' => 'fas fa-fw fa-gift',
                 ],
                 [
-                    'text'=>'Daftar Ulang',
-                    'url' =>'admin/pendaftar/du',
-                    'icon' => 'fas fa-fw fa-dollar-sign',
+                    'text'=>'Pondok',
+                    'url' =>'admin/pondok',
+                    'icon' => 'fas fa-fw fa-building',
                 ],
+            //    [
+            //        'text'=>'Daftar Ulang',
+            //        'url' =>'admin/pendaftar/du',
+            //        'icon' => 'fas fa-fw fa-dollar-sign',
+            //    ],
         [
             'text' => 'PER JURUSAN',
             'icon' => 'fas fa-fw fa-random',
             'classes'  => 'text-yellow text-bold',
-            'submenu' => [
+            'submenu' =>
             [
-                'text'=>'TKJ',
-                'url' =>'admin/pendaftar/list/tkj',
-                'icon' => 'fas fa-fw fa-desktop',
+                [
+                    'text'=>'TKJ',
+                    'url' =>'admin/pendaftar/list/tkj',
+                    'icon' => 'fas fa-fw fa-desktop',
+                ],
+                [
+                    'text'=>'TPM',
+                    'url' =>'admin/pendaftar/list/tpm',
+                    'icon' => 'fas fa-fw fa-cogs',
+                ],
+                [
+                    'text'=>'TKR',
+                    'url' =>'admin/pendaftar/list/tkr',
+                    'icon' => 'fas fa-fw fa-car-side',
+                ],
+                [
+                    'text'=>'TITL',
+                    'url' =>'admin/pendaftar/list/titl',
+                    'icon' => 'fas fa-fw fa-bolt',
+                ],
+                [
+                    'text'=>'TSM',
+                    'url' =>'admin/pendaftar/list/tsm',
+                    'icon' => 'fas fa-fw fa-motorcycle',
+                ],
+                [
+                    'text'=>'PERHOTELAN',
+                    'url' =>'admin/pendaftar/list/pht',
+                    'icon' => 'fas fa-fw fa-hotel',
+                ],
+                [
+                    'text'=>'KULINER',
+                    'url' =>'admin/pendaftar/list/kul',
+                    'icon' => 'fas fa-fw fa-utensils',
+                ],
             ],
-            [
-                'text'=>'TPM',
-                'url' =>'admin/pendaftar/list/tpm',
-                'icon' => 'fas fa-fw fa-cogs',
-            ],
-            [
-                'text'=>'TKR',
-                'url' =>'admin/pendaftar/list/tkr',
-                'icon' => 'fas fa-fw fa-car-side',
-            ],
-            [
-                'text'=>'TITL',
-                'url' =>'admin/pendaftar/list/titl',
-                'icon' => 'fas fa-fw fa-bolt',
-            ],
-            [
-                'text'=>'TSM',
-                'url' =>'admin/pendaftar/list/tsm',
-                'icon' => 'fas fa-fw fa-motorcycle',
-            ],
-            [
-                'text'=>'PERHOTELAN',
-                'url' =>'admin/pendaftar/list/pht',
-                'icon' => 'fas fa-fw fa-hotel',
-            ],
-            [
-                'text'=>'KULINER',
-                'url' =>'admin/pendaftar/list/kul',
-                'icon' => 'fas fa-fw fa-utensils',
-            ],
-        ],
         ],
         [
             'text' => 'account_settings',

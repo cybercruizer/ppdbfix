@@ -17,7 +17,7 @@ class BendaharaAccessMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Cek apakah pengguna sedang login dan memiliki peran "bendahara" atau "admin"
-        if ($request->user() && in_array($request->user()->role, ['bendahara','admin'])) {
+        if ($request->user() && in_array($request->user()->role, ['bendahara'])) {
             return $next($request);
         }
 

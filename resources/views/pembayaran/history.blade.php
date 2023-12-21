@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Profile')
+@section('title', 'History Pembayaran')
 
 @section('content_header')
 <h1>Histori Pembayaran</h1>
@@ -10,7 +10,7 @@
 <div class="card">
     <div class="card-header">
         <form action="{{ route('pembayaran.history') }}" method="GET">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="form-group col-lg-4">
                     <label for="start_date">Tgl Awal:</label>
                     <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $startDate }}">
@@ -34,26 +34,19 @@
                 <th>No</th>
                 <th>Siswa</th>
                 <th>Tagihan</th>
-                <th>Tahun</th>
                 <th>Nominal</th>
-                <th>Status pembayaran</th>
+                <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($historiPembayaran as $pembayaran)
+            @foreach($historiPembayaran as $pembayaran=>$p)
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $pembayaran->siswa->nama }}</td>
-                <td>{{ $pembayaran->tagihan->nama_tagihan }}</td>
-                <td>{{ $pembayaran->tahun->tahun }}</td>
-                <td>{{ $pembayaran->nominal }}</td>
-                <td>
-                    @if($pembayaran->nominal >= $pembayaran->tagihan->nominal)
-                    <span class="badge badge-success">Lunas</span>
-                    @else
-                        Kurang: {{ $pembayaran->tagihan->nominal - $pembayaran->nominal }}
-                    @endif
-                </td>
+                <td>{{ $historiPembayaran->firstItem() + $pembayaran }}</td>
+                <td>{{ strtoupper($p->siswa->nama) }}</td>
+                <td>{{ $p->tagihan->nama_tagihan }}</td>
+                <td><p class="rupiah">{{ $p->nominal }}</p></td>
+                <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
+
             </tr>
             @endforeach
         </tbody>
@@ -65,8 +58,15 @@
 @stop
 
 @section('js')
-<script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function() {
+            $('.rupiah').mask('#.##0', {
+                reverse: true
+            });
+        });
 </script>
 <script> console.log('halaman profil'); </script>
 @stop
