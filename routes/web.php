@@ -56,5 +56,4 @@ Route::group(['middleware' => 'bendahara.access'], function () {
     Route::get('/pembayaran/create', [PembayaranController::class,'create'])->name('pembayaran.create');
     Route::get('/pembayaran/history', [PembayaranController::class,'history'])->name('pembayaran.history');
     Route::post('/pembayaran', [PembayaranController::class,'store'])->name('pembayaran.store');
-
 });

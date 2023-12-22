@@ -330,7 +330,7 @@ return [
                 'icon' => 'fas fa-fw fa-list',
             ],
             [
-                'text'=>'Adm Input Pembayaran',
+                'text'=>'Adm Lihat Pembayaran',
                 'url' =>'/admin/pembayaran',
                 'icon' => 'fas fa-fw fa-hand-holding-usd',
             ],

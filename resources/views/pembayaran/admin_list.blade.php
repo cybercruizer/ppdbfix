@@ -10,7 +10,7 @@
 <div class="container">
 
     <!-- Form untuk pencarian siswa -->
-    <form action="{{ route('pembayaran.create') }}" method="GET">
+    <form action="{{ route('admin.pembayaran') }}" method="GET">
         <div class="input-group mb-3 col-lg-5">
             <input type="text" name="search" class="form-control" placeholder="Pencarian siswa" aria-label="Pencarian siswa" aria-describedby="basic-addon2 value="{{ request()->query('search') }}">
             <div class="input-group-append">

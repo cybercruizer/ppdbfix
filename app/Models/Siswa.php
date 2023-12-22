@@ -7,6 +7,7 @@ use App\Models\Bendahara\Payment;
 use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Siswa extends Model
@@ -54,6 +55,15 @@ class Siswa extends Model
     public function guru(): BelongsTo
     {
         return $this->belongsTo(Guru::class);
+    }
+    /**
+     * Get the desa associated with the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function desa(): HasOne
+    {
+        return $this->hasOne(Desa::class);
     }
     protected function totalPembayaran(): Attribute
     {
