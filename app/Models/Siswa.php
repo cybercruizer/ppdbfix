@@ -3,8 +3,12 @@
 namespace App\Models;
 
 use App\Models\Ortu;
-use App\Models\Payment;
+use App\Models\Bendahara\Payment;
+use App\Models\Bendahara\Tagihan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Siswa extends Model
 {
@@ -30,6 +34,7 @@ class Siswa extends Model
         'alasan',
         'ortu_id',
     ];
+    protected $append = ['total_pembayaran'];
 
     public function ortu() {
         return $this->hasOne(Ortu::class);
@@ -37,5 +42,33 @@ class Siswa extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class,'siswa_id');
+    }
+    public function tagihan()
+    {
+        return $this->hasOne(Tagihan::class);
+    }
+    /**
+     * Get the gugu that owns the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function guru(): BelongsTo
+    {
+        return $this->belongsTo(Guru::class);
+    }
+    /**
+     * Get the desa associated with the Siswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function desa(): HasOne
+    {
+        return $this->hasOne(Desa::class);
+    }
+    protected function totalPembayaran(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $this->payments()->sum('nominal'),
+        );
     }
 }

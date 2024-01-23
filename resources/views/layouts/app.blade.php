@@ -76,5 +76,12 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('.rupiah').mask("#.##0", {
+                reverse: true
+            });
+        });
+    </script>
 </body>
 </html>

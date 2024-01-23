@@ -11,8 +11,8 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="/admin/pendaftar/export/excel" class="btn btn-labeled btn-success my-3" target="_blank"><span class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
-        <div class="card-tools">
+        <a href="{{ route('pendaftar.exportExcel') }}" class="btn btn-labeled btn-success my-3" target="_blank"><span class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
+        <div class="card-tools my-3">
             <form action="{{ route('caripendaftar') }}" method="GET">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Cari nama .." name="cari">
@@ -27,16 +27,19 @@
         </div>
     </div>
 <div class="card-body">
+    <p>* Data teratas = data pendaftar terakhir</p>
 <div class="table-responsive">
     <table class="table table-hover text-nowrap">
         <thead class="thead-dark">
             <tr>
-                <th class="col-sm-1">No</th>
-                <th class="col-sm-2">No Pendaft</th>
-                <th class="col-sm-2">Jurusan</th>
-                <th class="col-sm-3">Nama</th>
-                <th class="col-sm-2">No Telp</th>
-                <th class="col-sm-2">Aksi</th>
+                <th style="width: 30px">No</th>
+                <th style="width: 80px">No Pendaft</th>
+                <th style="width: 50px">Jurusan</th>
+                <th class="col-sm-2">Nama</th>
+                <th class="col-sm-1">No Telp</th>
+                <th class="col-sm-1">Rekomendator</th>
+                <th class="col-sm-1">Tgl Input</th>
+                <th class="col-sm-1">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -46,12 +49,15 @@
                     <td>{{ $siswa->firstItem() + $key }}</td>
                     <td>{{$s->no_pendaf}}</td>
                     <td>{{$s->jurusan}}</td>
-                    <td>{{$s->nama}}</td>
+                    <td>{{strtoupper($s->nama)}}</td>
                     <td>{{$s->no_telp}}</td>
+                    <td><b>Siswa:</b><br>- {{$s->rekomendator ?? '-'}}<br><b>GuKar:</b><br>- {{ $s->guru->nama ?? '-' }}</td>
+                    <td>{{\Carbon\Carbon::parse($s->created_at)->format('d/m/Y')}}</td>
+
                     <td><a class="btn btn-info btn-sm" role="button" href="/pendaftar/cetak/{{$s->id}}"><i class="fas fa-print"></i></a>
-                        <a class="btn btn-primary btn-sm" role="button" href="/admin/pendaftar/edit/{{$s->id}}"><i class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-primary btn-sm" role="button" href="/admin/pendaftar/edit/{{$s->id}}"><i class="fas fa-pencil-alt"></i></a><br>
                         <a href="/admin/pendaftar/hapus/{{ $s->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data atas nama {{$s->nama}} ?')"><i class="far fa-trash-alt"></i></a>
-                        <a class="btn btn-success btn-sm" role="button" href="https://wa.me/+62{{$s->no_telp}}">WA</a>
+                        <a class="btn btn-success btn-sm" role="button" href="https://wa.me/+62{{$s->no_telp}}" target="_blank">WA</a>
                     </td>
                 </tr>
                 @endforeach
@@ -76,7 +82,7 @@
     e.preventDefault();
     var form = e.target.form;
     swal({
-        title: "Are you sure you want to delete?",
+        title: "Yakin akan menghapus data ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

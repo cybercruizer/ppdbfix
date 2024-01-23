@@ -4,6 +4,7 @@
 
 @section('content_header')
 <h1>Input Pembayaran</h1>
+
 @stop
 
 @section('content')
@@ -21,26 +22,36 @@
 
     <!-- Tabel untuk menampilkan daftar siswa -->
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>No</th>
                 <th>Nama Siswa</th>
                 <th>No Pendaft</th>
                 <th>Jurusan</th>
+                <th>Ket.</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($siswaList as $siswa)
+            @foreach($siswaList as $siswa=>$s)
             <tr>
-                <td>{{ $siswaList->firstItem() + $loop->index }}</td>
-                <td>{{ $siswa->nama }}</td>
-                <td>{{$siswa->no_pendaf}}</td>
-                <td>{{$siswa->jurusan}}</td>
+                <td>{{ $siswaList->firstItem() + $siswa }}</td>
+                <td>{{ strToUpper($s->nama) }}</td>
+                <td>{{$s->no_pendaf}}</td>
+                <td>{{$s->jurusan}}</td>
+                <td>
+                    @if (!empty($s))
+                        @if ($s->total_pembayaran >= $s->tagihan->nominal)
+                            <span class="badge badge-success">Lunas</span>
+                        @else
+                            <p class="text-danger">Kurang: <span class="rupiah">{{ $s->tagihan->nominal - $s->total_pembayaran }}</span></p>
+                        @endif
+                    @endif
+                </td>
                 <td>
                     <!-- Tombol modal untuk input pembayaran -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputPembayaranModal{{ $siswa->id }}">
-                        Input Pembayaran
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputPembayaranModal{{ $s->id }}">
+                        <i class="fas fa-coins"></i>
                     </button>
                 </td>
             </tr>
@@ -70,27 +81,28 @@
                     <form action="{{ route('pembayaran.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
-                        <div class="form-group">
-                            <label for="tagihan_id">Pilih Tagihan:</label>
-                            <select name="tagihan_id" id="tagihan_id" class="form-control">
-                                @foreach($tagihanList as $tagihan)
-                                    <option value="{{ $tagihan->id }}">{{ $tagihan->nama_tagihan }}</option>
-                                @endforeach
-                            </select>
+                        <input type="hidden" name="tagihan_id" value="{{ $siswa->tagihan->id }}">
+                        <label for="tagihan">Jumlah Tagihan:</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp </span>
+                            </div>
+
+                            <input id="tagihan" name="tagihan" type="text" class="form-control rupiah" aria-label="Nominal" aria-describedby="basic-addon1" value="{{ $siswa->tagihan->nominal ?? '0' }}" disabled>
+                        </div>
+                        <label for="kekurangan">Kekurangan:</label>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Rp </span>
+                            </div>
+
+                            <input id="kekurangan" name="kekurangan" type="text" class="form-control rupiah" aria-label="Nominal" aria-describedby="basic-addon1" value="{{ $siswa->tagihan->nominal - $siswa->total_pembayaran }}" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="tahun_id">Pilih Tahun:</label>
-                            <select name="tahun_id" id="tahun_id" class="form-control">
-                                @foreach($tahunList as $tahun)
-                                    <option value="{{ $tahun->id }}">{{ $tahun->tahun }}</option>
-                                @endforeach
-                            </select>
+                            <label for="nominal">Nominal Pembayaran:</label>
+                            <input type="text" name="nominal" id="nominal" class="form-control rupiah">
                         </div>
-                        <div class="form-group">
-                            <label for="nominal">Nominal:</label>
-                            <input type="number" name="nominal" id="nominal" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="text" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
@@ -105,8 +117,14 @@
 @stop
 
 @section('js')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
-
+    $(document).ready(function() {
+            $('.rupiah').mask('#.##0', {
+                reverse: true
+            });
+        });
 </script>
-<script> console.log('halaman profil'); </script>
+<script> console.log('halaman pembayaran'); </script>
 @stop

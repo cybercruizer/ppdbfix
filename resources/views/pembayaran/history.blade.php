@@ -1,16 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', 'Profile')
+@section('title', 'History Pembayaran')
 
 @section('content_header')
 <h1>Histori Pembayaran</h1>
+@include('sweetalert::alert')
 @stop
 
 @section('content')
 <div class="card">
     <div class="card-header">
         <form action="{{ route('pembayaran.history') }}" method="GET">
-            <div class="row">
+            <div class="row align-items-center">
                 <div class="form-group col-lg-4">
                     <label for="start_date">Tgl Awal:</label>
                     <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $startDate }}">
@@ -21,6 +22,12 @@
                 </div>
                 <div class="col-lg-4">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-search"></i> Cari Per Tanggal</button>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-4">
+                    <a href="{{ route('admin.history.laporan') }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success">Eksport Laporan</a>
+
                 </div>
             </div>
 
@@ -34,30 +41,32 @@
                 <th>No</th>
                 <th>Siswa</th>
                 <th>Tagihan</th>
-                <th>Tahun</th>
                 <th>Nominal</th>
-                <th>Status pembayaran</th>
+                <th>Tanggal</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($historiPembayaran as $pembayaran)
+            @foreach($historiPembayaran as $pembayaran=>$p)
             <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $pembayaran->siswa->nama }}</td>
-                <td>{{ $pembayaran->tagihan->nama_tagihan }}</td>
-                <td>{{ $pembayaran->tahun->tahun }}</td>
-                <td>{{ $pembayaran->nominal }}</td>
-                <td>
-                    @if($pembayaran->nominal >= $pembayaran->tagihan->nominal)
-                    <span class="badge badge-success">Lunas</span>
-                    @else
-                        Kurang: {{ $pembayaran->tagihan->nominal - $pembayaran->nominal }}
-                    @endif
-                </td>
+                <td>{{ $historiPembayaran->firstItem() + $pembayaran }}</td>
+                <td>{{ strtoupper($p->siswa->nama) }}</td>
+                <td>{{ $p->tagihan->nama_tagihan }}</td>
+                <td><p class="rupiah">{{ $p->nominal }}</p></td>
+                <td>{{\Carbon\Carbon::parse($p->created_at)->format('d/m/Y')}}</td>
+                <td><a href="hapus/{{ $p->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Yakin menghapus data pembayaran untuk nama {{$p->siswa->nama}} ?')"><i class="fas fa-trash-alt"></i></a></td>
+
             </tr>
             @endforeach
         </tbody>
     </table>
+</div>
+</div>
+<div class="card-footer clearfix">
+    <ul class="pagination pagination m-0 float-right">
+        {!! $historiPembayaran->links() !!}
+    </ul>
+</div>
 @stop
 
 @section('css')
@@ -65,8 +74,31 @@
 @stop
 
 @section('js')
+<script type="text/javascript">
+    window.deleteConfirm = function (e) {
+    e.preventDefault();
+    var form = e.target.form;
+    swal({
+        title: "Yakin akan menghapus data ini?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            form.submit();
+        }
+      });
+    }
+</script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
-
+    $(document).ready(function() {
+            $('.rupiah').mask('#.##0', {
+                reverse: true
+            });
+        });
 </script>
 <script> console.log('halaman profil'); </script>
 @stop

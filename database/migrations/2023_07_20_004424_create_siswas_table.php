@@ -36,6 +36,7 @@ return new class extends Migration
             $table->tinyInteger('jurusan');
             $table->string('alasan');
             $table->integer('ortu_id');
+            $table->string('kategori');
 
             $table->timestamps();
         });

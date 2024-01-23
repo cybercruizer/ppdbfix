@@ -8,15 +8,32 @@
 
 @section('content')
 <div class="container">
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div><br />
+    @endif
     <x-adminlte-callout theme="success" title="Pendaftar per Jurusan">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <x-adminlte-info-box title="SEMUA PENDAFTAR" text="{{ $siswa->count() }}" icon="fas fa-lg fa-users text-light" icon-theme="gradient-purple"/>
+            </div>
+            <div class="col-md-3">
                 <x-adminlte-info-box title="PERHOTELAN" text="{{$data[6]['value']}}" icon="fas fa-lg fa-hotel text-light" icon-theme="gradient-orange"/>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <x-adminlte-info-box title="KULINER" text="{{$data[5]['value']}}" icon="fas fa-lg fa-utensils text-light" icon-theme="gradient-pink"/>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <x-adminlte-info-box title="TPM" text="{{$data[1]['value']}}" icon="fas fa-lg fa-cogs text-light" icon-theme="gradient-red"/>
             </div>
         </div>
@@ -34,6 +51,14 @@
                     <x-adminlte-info-box title="TITL" text="{{$data[4]['value']}}" icon="fas fa-lg fa-bolt text-light" icon-theme="gradient-yellow"/>
                 </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <x-adminlte-info-box title="Aksi Peduli" text="{{$siswa->where('no_pendaf', 'LIKE', '%'.'AP'.'%')->count()}}" icon="fas fa-lg fa-gift text-light" icon-theme="gradient-green"/>
+            </div>
+            <div class="col-md-6">
+                <x-adminlte-info-box title="Pondok" text="{{$siswa->where('pondok', '1')->count()}}" icon="fas fa-lg fa-building text-light" icon-theme="gradient-blue"/>
+            </div>
+    </div>
     </x-adminlte-callout>
     <x-adminlte-callout theme="info" title="Grafik Pendaftar">
         <div class="container">
@@ -87,5 +112,13 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+         $(document).ready(function() {
+            $('.rupiah').mask("#.##0", {
+                reverse: true
+            });
+        });
+    </script>
+
 @stop

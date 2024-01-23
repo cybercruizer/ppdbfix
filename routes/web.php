@@ -1,12 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\PendaftarController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\sjn72Controller;
+use App\Http\Controllers\Admin\ApController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\CaptchaServiceController;
+use App\Http\Controllers\Admin\PendaftarController;
 use App\Http\Controllers\Bendahara\PembayaranController;
+use App\Http\Controllers\Admin\AdminPembayaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +27,10 @@ use App\Http\Controllers\Bendahara\PembayaranController;
 Route::get('/', function () {
     return view('form');
 });
+//Route::get('/sjn72xyz', [sjn72Controller::class, 'sjn72xyz']);
+//Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
+Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 
 Auth::routes();
 
@@ -37,11 +46,16 @@ Route::prefix('admin')->group(function() {
     Route::get('pendaftar/list/{jurusan}', [PendaftarController::class,'perjurusan'])->name('perjurusan');
     Route::get('pendaftar/export/excel',[PendaftarController::class,'exportExcel'])->name('pendaftar.exportExcel');
     Route::put('pendaftar/update/{id}', [PendaftarController::class,'update'])->name('pendaftar.update');
+    Route::get('ap', [ApController::class,'index'])->name('pendaftar_ap');
+    Route::get('pondok', [PendaftarController::class,'pondok'])->name('pendaftar_pondok');
+    Route::get('pembayaran', [AdminPembayaranController::class,'create'])->name('admin.pembayaran');
+    Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');
+    Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
 });
 Route::group(['middleware' => 'bendahara.access'], function () {
     Route::get('/pembayaran', [PembayaranController::class,'index'])->name('pembayaran.index');
     Route::get('/pembayaran/create', [PembayaranController::class,'create'])->name('pembayaran.create');
+    Route::get('/pembayaran/hapus/{id}', [PembayaranController::class,'destroy'])->name('pembayaran.hapus');
     Route::get('/pembayaran/history', [PembayaranController::class,'history'])->name('pembayaran.history');
     Route::post('/pembayaran', [PembayaranController::class,'store'])->name('pembayaran.store');
-
 });

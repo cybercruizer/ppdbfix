@@ -197,6 +197,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -216,6 +217,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ])->toArray(),
 
 ];
