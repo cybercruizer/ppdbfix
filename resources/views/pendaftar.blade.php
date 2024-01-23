@@ -11,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="/admin/pendaftar/export/excel" class="btn btn-labeled btn-success my-3" target="_blank"><span class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
+        <a href="{{ route('pendaftar.exportExcel') }}" class="btn btn-labeled btn-success my-3" target="_blank"><span class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT KE EXCEL</a>
         <div class="card-tools my-3">
             <form action="{{ route('caripendaftar') }}" method="GET">
             <div class="input-group">
@@ -32,9 +32,9 @@
     <table class="table table-hover text-nowrap">
         <thead class="thead-dark">
             <tr>
-                <th class="col-sm-1">No</th>
-                <th class="col-sm-1">No Pendaft</th>
-                <th class="col-sm-1">Jurusan</th>
+                <th style="width: 30px">No</th>
+                <th style="width: 80px">No Pendaft</th>
+                <th style="width: 50px">Jurusan</th>
                 <th class="col-sm-2">Nama</th>
                 <th class="col-sm-1">No Telp</th>
                 <th class="col-sm-1">Rekomendator</th>

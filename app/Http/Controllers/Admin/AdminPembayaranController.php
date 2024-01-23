@@ -53,4 +53,9 @@ class AdminPembayaranController extends Controller
 
         return view('pembayaran.history', compact('historiPembayaran', 'startDate', 'endDate'));
     }
+    public function laporan()
+    {
+        $pembayarans = Payment::with('siswa','tagihan')->get();
+        return view('pembayaran.laporan', compact('pembayarans'));
+    }
 }

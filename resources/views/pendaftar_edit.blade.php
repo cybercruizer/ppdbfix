@@ -5,6 +5,16 @@
 @section('content_header')
     <h1>EDIT SISWA : {{$siswa->nama}}</h1>
     @include('sweetalert::alert')
+	<script>
+		window.onload=passwordCheck;
+		function passwordCheck()
+		{
+    		var password = prompt("Masukkan PIN pengaman");
+    		if (password !== "4321") {
+        		passwordCheck();
+    		}
+		}
+	</script>
 @stop
 
 @section('content')

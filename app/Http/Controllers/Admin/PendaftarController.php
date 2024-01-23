@@ -197,6 +197,6 @@ class PendaftarController extends Controller
 	}
     public function exportExcel ()
     {
-        return Excel::download(new SiswaExport, 'siswa.xlsx');
+        return Excel::download(new SiswaExport, 'Data Pendaftar.xlsx');
     }
 }

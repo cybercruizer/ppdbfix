@@ -4,6 +4,7 @@
 
 @section('content_header')
 <h1>Input Pembayaran</h1>
+
 @stop
 
 @section('content')
@@ -49,7 +50,7 @@
                 </td>
                 <td>
                     <!-- Tombol modal untuk input pembayaran -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputPembayaranModal{{ $s->id }}">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputPembayaranModal{{ $s->id }}">
                         <i class="fas fa-coins"></i>
                     </button>
                 </td>
@@ -81,22 +82,6 @@
                         @csrf
                         <input type="hidden" name="siswa_id" value="{{ $siswa->id }}">
                         <input type="hidden" name="tagihan_id" value="{{ $siswa->tagihan->id }}">
-                        {{-- <div class="form-group">
-                            <label for="tagihan_id">Pilih Tagihan:</label>
-                            <select name="tagihan_id" id="tagihan_id" class="form-control">
-                                @foreach($tagihanList as $tagihan)
-                                    <option value="{{ $tagihan->id }}">{{ $tagihan->nama_tagihan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="tahun_id">Pilih Tahun:</label>
-                            <select name="tahun_id" id="tahun_id" class="form-control">
-                                @foreach($tahunList as $tahun)
-                                    <option value="{{ $tahun->id }}">{{ $tahun->tahun }}</option>
-                                @endforeach
-                            </select>
-                        </div> --}}
                         <label for="tagihan">Jumlah Tagihan:</label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -113,10 +98,6 @@
 
                             <input id="kekurangan" name="kekurangan" type="text" class="form-control rupiah" aria-label="Nominal" aria-describedby="basic-addon1" value="{{ $siswa->tagihan->nominal - $siswa->total_pembayaran }}" disabled>
                         </div>
-                        {{-- <div class="form-group">
-                            <label for="tagihan">Jumlah Tagihan:</label>
-                            <input type="number" name="tagihan" id="tagihan" class="form-control rupiah" value="{{ $siswa->tagihan->nominal ?? '0' }}" disabled>
-                        </div> --}}
                         <div class="form-group">
                             <label for="nominal">Nominal Pembayaran:</label>
                             <input type="text" name="nominal" id="nominal" class="form-control rupiah">

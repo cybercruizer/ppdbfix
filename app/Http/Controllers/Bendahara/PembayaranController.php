@@ -81,5 +81,14 @@ class PembayaranController extends Controller
         return view('pembayaran.history', compact('historiPembayaran', 'startDate', 'endDate'));
     }
 
+    public function destroy($id)
+    {
+
+        $pembayaran=Payment::findOrFail($id);
+        $pembayaran->delete();
+        alert()->success('Sukses!','Data berhasil dihapus');
+        return redirect()->route('pembayaran.history');
+    }
+
 
 }

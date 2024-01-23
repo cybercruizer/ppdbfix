@@ -50,10 +50,12 @@ Route::prefix('admin')->group(function() {
     Route::get('pondok', [PendaftarController::class,'pondok'])->name('pendaftar_pondok');
     Route::get('pembayaran', [AdminPembayaranController::class,'create'])->name('admin.pembayaran');
     Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');
+    Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
 });
 Route::group(['middleware' => 'bendahara.access'], function () {
     Route::get('/pembayaran', [PembayaranController::class,'index'])->name('pembayaran.index');
     Route::get('/pembayaran/create', [PembayaranController::class,'create'])->name('pembayaran.create');
+    Route::get('/pembayaran/hapus/{id}', [PembayaranController::class,'destroy'])->name('pembayaran.hapus');
     Route::get('/pembayaran/history', [PembayaranController::class,'history'])->name('pembayaran.history');
     Route::post('/pembayaran', [PembayaranController::class,'store'])->name('pembayaran.store');
 });
