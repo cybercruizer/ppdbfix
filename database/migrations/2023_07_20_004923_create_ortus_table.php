@@ -17,13 +17,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('siswa_id');
             $table->string('nama_ayah');
-            $table->string('telp');
+            $table->string('telp')->nullable();
             $table->text('alamat_ortu');
-            $table->tinyInteger('kerjaayah_id');
-            $table->tinyInteger('gajiayah_id');
+            $table->tinyInteger('kerjaayah_id')->nullable();
+            $table->tinyInteger('gajiayah_id')->nullable();
             $table->string('nama_ibu');
-            $table->tinyInteger('kerjaibu_id');
-            $table->tinyInteger('gajiibu_id');
+            $table->tinyInteger('kerjaibu_id')->nullable();
+            $table->tinyInteger('gajiibu_id')->nullable();
             $table->timestamps();
         });
     }

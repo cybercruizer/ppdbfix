@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('tagihans', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('siswa_id');
             $table->string('nama_tagihan');
             $table->unsignedDecimal('nominal', 10, 2);
             $table->timestamps();
