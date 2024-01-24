@@ -320,24 +320,28 @@ return [
             'classes'  => 'text-yellow text-bold',
         ],
             [
-                'text'=>'Bend Input Pembayaran',
+                'text'=>'Input Pembayaran',
                 'url' =>'/pembayaran/create',
                 'icon' => 'fas fa-fw fa-hand-holding-usd',
+                'can'   => 'isBendahara',
             ],
             [
-                'text'=>'Bend Histori Pembayaran',
+                'text'=>'Histori Pembayaran',
                 'url' =>'/pembayaran/history',
                 'icon' => 'fas fa-fw fa-list',
+                'can'   => 'isBendahara',
             ],
             [
-                'text'=>'Adm Lihat Pembayaran',
+                'text'=>'Lihat Pembayaran',
                 'url' =>'/admin/pembayaran',
                 'icon' => 'fas fa-fw fa-hand-holding-usd',
+                'can'   => 'isAdmin',
             ],
             [
-                'text'=>'Adm Histori Pembayaran',
+                'text'=>'Histori Pembayaran',
                 'url' =>'/admin/history',
                 'icon' => 'fas fa-fw fa-list',
+                'can'   => 'isAdmin',
             ],
             [
                 'header'=> 'PENDAFTAR',
