@@ -25,30 +25,30 @@
     <x-adminlte-callout theme="success" title="Pendaftar per Jurusan">
         <div class="row">
             <div class="col-md-3">
-                <x-adminlte-info-box title="SEMUA PENDAFTAR" text="{{ $siswa->count() }}" icon="fas fa-lg fa-users text-light" icon-theme="gradient-purple"/>
+                <x-adminlte-info-box title="SEMUA PENDAFTAR" text="{{ $siswadu }} / {{ $siswa->count() }}" icon="fas fa-lg fa-users text-light" icon-theme="gradient-purple"/>
             </div>
             <div class="col-md-3">
-                <x-adminlte-info-box title="PERHOTELAN" text="{{$data[6]['value']}}" icon="fas fa-lg fa-hotel text-light" icon-theme="gradient-orange"/>
+                <x-adminlte-info-box title="PERHOTELAN" text="{{ $data[6]['sub_value'] }} / {{$data[6]['value']}}" icon="fas fa-lg fa-hotel text-light" icon-theme="gradient-orange"/>
             </div>
             <div class="col-md-3">
-                <x-adminlte-info-box title="KULINER" text="{{$data[5]['value']}}" icon="fas fa-lg fa-utensils text-light" icon-theme="gradient-pink"/>
+                <x-adminlte-info-box title="KULINER" text="{{ $data[5]['sub_value'] }} / {{$data[5]['value']}}" icon="fas fa-lg fa-utensils text-light" icon-theme="gradient-pink"/>
             </div>
             <div class="col-md-3">
-                <x-adminlte-info-box title="TPM" text="{{$data[1]['value']}}" icon="fas fa-lg fa-cogs text-light" icon-theme="gradient-red"/>
+                <x-adminlte-info-box title="TPM" text="{{ $data[1]['sub_value'] }} / {{$data[1]['value']}}" icon="fas fa-lg fa-cogs text-light" icon-theme="gradient-red"/>
             </div>
         </div>
         <div class="row">
                 <div class="col-md-3">
-                    <x-adminlte-info-box title="TKR" text="{{$data[2]['value']}}" icon="fas fa-lg fa-car-side text-light" icon-theme="gradient-green"/>
+                    <x-adminlte-info-box title="TKR" text="{{ $data[2]['sub_value'] }} / {{$data[2]['value']}}" icon="fas fa-lg fa-car-side text-light" icon-theme="gradient-green"/>
                 </div>
                 <div class="col-md-3">
-                    <x-adminlte-info-box title="TKJ" text="{{$data[0]['value']}}" icon="fas fa-lg fa-desktop text-light" icon-theme="gradient-blue"/>
+                    <x-adminlte-info-box title="TKJ" text="{{ $data[0]['sub_value'] }} / {{$data[0]['value']}}" icon="fas fa-lg fa-desktop text-light" icon-theme="gradient-blue"/>
                 </div>
                 <div class="col-md-3">
-                    <x-adminlte-info-box title="TSM" text="{{$data[3]['value']}}" icon="fas fa-lg fa-motorcycle text-light" icon-theme="gradient-orange"/>
+                    <x-adminlte-info-box title="TSM" text="{{ $data[3]['sub_value'] }} / {{$data[3]['value']}}" icon="fas fa-lg fa-motorcycle text-light" icon-theme="gradient-orange"/>
                 </div>
                 <div class="col-md-3">
-                    <x-adminlte-info-box title="TITL" text="{{$data[4]['value']}}" icon="fas fa-lg fa-bolt text-light" icon-theme="gradient-yellow"/>
+                    <x-adminlte-info-box title="TITL" text="{{ $data[4]['sub_value'] }} / {{$data[4]['value']}}" icon="fas fa-lg fa-bolt text-light" icon-theme="gradient-yellow"/>
                 </div>
         </div>
         <div class="row">
@@ -74,7 +74,7 @@
 
             var labels = data.map(item => item.label);
             var values = data.map(item => item.value);
-            var subValues = data.map(item => item.sub_value);
+            var sub_values = data.map(item => item.sub_value);
 
             var chart = new Chart(ctx, {
                 type: 'bar',
@@ -88,7 +88,7 @@
                         borderWidth: 1
                     }, {
                         label: 'Daftar Ulang',
-                        data: subValues,
+                        data: sub_values,
                         backgroundColor: 'rgba(153, 102, 255, 0.2)',
                         borderColor: 'rgba(153, 102, 255, 1)',
                         borderWidth: 1
