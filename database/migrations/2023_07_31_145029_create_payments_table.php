@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('siswa_id');
             $table->unsignedBigInteger('tagihan_id');
-            $table->unsignedBigInteger('tahun_id');
+            $table->unsignedBigInteger('tahun_id')->nullable();
             $table->unsignedDecimal('nominal', 10, 2);
             $table->timestamps();
 
