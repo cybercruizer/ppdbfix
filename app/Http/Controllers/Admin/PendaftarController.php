@@ -23,7 +23,7 @@ class PendaftarController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->perhalaman=20; //Data yang ditampilkan per halaman
+        $this->perhalaman=30; //Data yang ditampilkan per halaman
     }
 
     public function index()
@@ -147,7 +147,7 @@ class PendaftarController extends Controller
         $ortu -> save();
 
         $tagihan = $siswa->tagihan;
-        $nominal_bayar = 1000000; //Ganti sesuai gelombang
+        $nominal_bayar = $request->input('tagihan_du');
         //if ( $request->input('kategori') == 'REG' ) {
         //    $tagihan->nominal = $nominal_bayar;
         //} else if ($request->input('kategori') == 'AP50'|| $request->input('kategori') == 'KB'|| $request->input('kategori') == 'KB2') {

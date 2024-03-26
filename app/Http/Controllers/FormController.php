@@ -59,7 +59,7 @@ class FormController extends Controller
         #$ortu -> alamat_wali = $data['alamat_wali'];
         #$ortu -> telp_wali = $data['telp_wali'];
         $ortu -> save();
-        $nominal_tagihan = 1000000; //ganti sesuai gelombang daftar
+        $nominal_tagihan = 1500000; //ganti sesuai gelombang daftar
         $tagihan = new Tagihan;
         $tagihan -> siswa_id = $siswa->id;
         $tagihan -> nama_tagihan = "ppdb";

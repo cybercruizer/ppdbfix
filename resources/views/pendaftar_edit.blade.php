@@ -360,6 +360,16 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Tagihan Daftar Ulang</td>
+                                    <td>
+                                        <select class="border rounded shadow-sm form-control-lg" name="tagihan_du">
+                                            <option value="1000000" {{ $siswa->tagihan->nominal == 1000000 ? 'selected' : '' }}>1.000.000</option>
+                                            <option value="1500000" {{ $siswa->tagihan->nominal == 1500000 ? 'selected' : '' }}>1.500.000</option>
+                                            <option value="2000000" {{ $siswa->tagihan->nominal == 2000000 ? 'selected' : '' }}>2.000.000</option>
+                                        </select>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -71,4 +71,13 @@ class Siswa extends Model
             get: fn ($value) => $this->payments()->sum('nominal'),
         );
     }
+    public function kekurangan()
+    {
+        $kekurangan= $this->tagihan->nominal - $this->totalPembayaran;
+        if($kekurangan<=0){
+            return "Lunas";
+        } else {
+            return  $kekurangan;
+        }
+    }
 }
