@@ -38,7 +38,10 @@ class AdminPembayaranController extends Controller
 
         return view('pembayaran.admin_list', compact('siswaList', 'searchQuery'));
     }
-
+    public function cek() {
+        $siswas = Siswa::all();
+        return view('pembayaran.cek',compact('siswas'));
+    }
     public function history(Request $request)
     {
         $startDate = $request->query('start_date');

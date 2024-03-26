@@ -7,18 +7,22 @@
 @stop
 
 @section('content')
-<div class="container">
-
+<div class="card">
+    <div class="card-header">
+        <div class="card-tools my-3 mr-3">
     <!-- Form untuk pencarian siswa -->
-    <form action="{{ route('admin.pembayaran') }}" method="GET">
-        <div class="input-group mb-3 col-lg-5">
-            <input type="text" name="search" class="form-control" placeholder="Pencarian siswa" aria-label="Pencarian siswa" aria-describedby="basic-addon2 value="{{ request()->query('search') }}">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">Cari</button>
-            </div>
-          </div>
-    </form>
-
+            <form action="{{ route('admin.pembayaran') }}" method="GET">
+                <div class="input-group mb-3 mr-3">
+                    <input type="text" name="search" class="form-control" placeholder="Pencarian siswa" aria-label="Pencarian siswa" aria-describedby="basic-addon2 value="{{ request()->query('search') }}">
+                    <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Cari</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <a href="{{ route('pembayaran.exportExcel') }}" class="btn btn-labeled btn-success my-3" target="_blank"><span class="btn-label"><i class="fa fa-arrow-down"></i></span> EXPORT DATA KE EXCEL</a>
+    </div>
+    <div class="card-body">
     <!-- Tabel untuk menampilkan daftar siswa -->
     <table class="table">
         <thead class="thead-dark">
@@ -27,7 +31,9 @@
                 <th>Nama Siswa</th>
                 <th>No Pendaft</th>
                 <th>Jurusan</th>
+                <th>Tagihan</th>
                 <th>Ket.</th>
+                <th>WA</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +43,7 @@
                 <td>{{ strToUpper($s->nama) }}</td>
                 <td>{{$s->no_pendaf}}</td>
                 <td>{{$s->jurusan}}</td>
+                <td><span class="rupiah">{{ $s->tagihan->nominal }}</span></td>
                 <td>
                     @if (!empty($s))
                         @if ($s->total_pembayaran >= $s->tagihan->nominal)
@@ -46,11 +53,14 @@
                         @endif
                     @endif
                 </td>
+                <td>
+                    <a href="https://wa.me/62{{ $s->no_telp }}" class="btn btn-success" target="_blank">WA</a>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-
+    </div>
     <!-- Tampilkan pagination links -->
     <div class="card-footer clearfix">
         <ul class="pagination pagination m-0 float-right">

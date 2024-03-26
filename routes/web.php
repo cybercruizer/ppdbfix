@@ -1,6 +1,9 @@
 <?php
 
+use Carbon\Carbon;
+use App\Exports\PembayaranExport;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\sjn72Controller;
@@ -31,6 +34,7 @@ Route::get('/', function () {
 //Route::get('/contact-form', [CaptchaServiceController::class, 'index']);
 Route::post('/captcha-validation', [CaptchaServiceController::class, 'capthcaFormValidate']);
 Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
+Route::get('/cek',[AdminPembayaranController::class,'cek']);
 
 Auth::routes();
 
@@ -49,6 +53,10 @@ Route::prefix('admin')->group(function() {
     Route::get('ap', [ApController::class,'index'])->name('pendaftar_ap');
     Route::get('pondok', [PendaftarController::class,'pondok'])->name('pendaftar_pondok');
     Route::get('pembayaran', [AdminPembayaranController::class,'create'])->name('admin.pembayaran');
+    Route::get('pembayaran/exportExcel', function () {
+        $date = Carbon::now()->format('d-m-y-H-i');
+        return Excel::download(new PembayaranExport, "pembayaran-{$date}.xlsx");
+    })->name('pembayaran.exportExcel');
     Route::get('history', [AdminPembayaranController::class,'history'])->name('admin.history');
     Route::get('laporan', [AdminPembayaranController::class,'laporan'])->name('admin.history.laporan');
 });
